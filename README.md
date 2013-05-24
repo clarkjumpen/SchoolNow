@@ -1,6 +1,5 @@
-SchoolNow
+SchoolNow vDocente
 =========
-vDocente
 
 -Mantenedores activos:
 Docente 100% Funcional
