@@ -4,14 +4,17 @@
  */
 package Datos;
 
+import Presentacion.AdmAlumnos;
+import Presentacion.AdmAsignaturas;
 import Presentacion.AdmDocentes;
 
-/**
+/**++++++
  *
  * @author Clark
  */
 public class Modulo {
-    public static  AdmDocentes admDocentes;
-    
-    
+
+    public static AdmDocentes admDocentes;
+    public static AdmAlumnos admAlumnos;
+    public static AdmAsignaturas admAsignaturas;
 }

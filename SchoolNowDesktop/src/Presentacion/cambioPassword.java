@@ -4,7 +4,9 @@
  */
 package Presentacion;
 
+import Datos.Alumno;
 import Datos.Docente;
+import Negocio.NegocioAlumno;
 import Negocio.NegocioDocente;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
@@ -24,13 +26,25 @@ public class cambioPassword extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
 
-    public cambioPassword(java.awt.Frame parent, boolean modal, Docente d) {
+    public cambioPassword(java.awt.Frame parent, boolean modal, Docente d, int cod) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.txtActual.setText(d.getPass());
         this.d = d;
+        this.nivel = cod;
     }
+
+    public cambioPassword(java.awt.Frame parent, boolean modal, Alumno a, int cod) {
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.txtActual.setText(a.getPass());
+        this.a = a;
+        this.nivel = cod;
+    }
+    private int nivel;
+    private Alumno a;
     private Docente d;
 
     /**
@@ -174,48 +188,99 @@ public class cambioPassword extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReestablecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReestablecerActionPerformed
-        int opcion = 0;
-        opcion = JOptionPane.showConfirmDialog(this,
-                "Desea Reestablecer la contraseña por defecto?",
-                "Confirmar",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-        if (opcion == JOptionPane.YES_OPTION) {
+        if (this.nivel == 32) {
+            int opcion = 0;
+            opcion = JOptionPane.showConfirmDialog(this,
+                    "Desea Reestablecer la contraseña por defecto?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
 
-            NegocioDocente negD = new NegocioDocente();
-            negD.setContraseña(d, d.getRut().substring(0,5));
-            JOptionPane.showMessageDialog(this, "Contraseña Reestablecida", "Suceso", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+                NegocioDocente negD = new NegocioDocente();
+                negD.setContraseña(d, d.getRut().substring(0, 5));
+                JOptionPane.showMessageDialog(this, "Contraseña Reestablecida", "Suceso", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
 
+            }
         }
+        
+         if (this.nivel == 16) {
+            int opcion = 0;
+            opcion = JOptionPane.showConfirmDialog(this,
+                    "Desea Reestablecer la contraseña por defecto?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+
+                NegocioAlumno negD = new NegocioAlumno();
+                negD.setContraseña(a, a.getRut().substring(0, 5));
+                JOptionPane.showMessageDialog(this, "Contraseña Reestablecida", "Suceso", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+
+            }
+        }
+
     }//GEN-LAST:event_btnReestablecerActionPerformed
 
     private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
-        if (this.txtNueva.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese la nueva contraseña", "Error", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if (this.txtReingresar.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Reingrese la nueva contraseña", "Error", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if (!this.txtNueva.getText().equals(this.txtReingresar.getText())) {
-            JOptionPane.showMessageDialog(this, "Las contraseñas deben coincidir", "Error", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        int opcion = 0;
-        opcion = JOptionPane.showConfirmDialog(this,
-                "Desea cambiar la contraseña?",
-                "Confirmar",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
-        if (opcion == JOptionPane.YES_OPTION) {
+        if (this.nivel == 32) {
+            if (this.txtNueva.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese la nueva contraseña", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            if (this.txtReingresar.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Reingrese la nueva contraseña", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            if (!this.txtNueva.getText().equals(this.txtReingresar.getText())) {
+                JOptionPane.showMessageDialog(this, "Las contraseñas deben coincidir", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            int opcion = 0;
+            opcion = JOptionPane.showConfirmDialog(this,
+                    "Desea cambiar la contraseña?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
 
-            NegocioDocente negD = new NegocioDocente();
+                NegocioDocente negD = new NegocioDocente();
 
-            negD.setContraseña(d, this.txtNueva.getText().trim());
-            JOptionPane.showMessageDialog(this, "Contraseña cambiada con exito", "Suceso", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+                negD.setContraseña(d, this.txtNueva.getText().trim());
+                JOptionPane.showMessageDialog(this, "Contraseña cambiada con exito", "Suceso", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
+        }
+        
+        if (this.nivel == 16) {
+            if (this.txtNueva.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese la nueva contraseña", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            if (this.txtReingresar.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Reingrese la nueva contraseña", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            if (!this.txtNueva.getText().equals(this.txtReingresar.getText())) {
+                JOptionPane.showMessageDialog(this, "Las contraseñas deben coincidir", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            int opcion = 0;
+            opcion = JOptionPane.showConfirmDialog(this,
+                    "Desea cambiar la contraseña?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION) {
+
+                NegocioAlumno negD = new NegocioAlumno();
+
+                negD.setContraseña(a, this.txtNueva.getText().trim());
+                JOptionPane.showMessageDialog(this, "Contraseña cambiada con exito", "Suceso", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
         }
 
 
