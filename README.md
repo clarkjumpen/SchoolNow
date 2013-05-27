@@ -1,4 +1,9 @@
-SchoolNow
+SchoolNow vAlumno
 =========
 
-SchoolNow Project - Clark Pinto 
+-Mantenedores activos: Docente 
+                       Alumno
+                       Asignaturas
+
+SchoolNow Project - Clark Pinto
+
