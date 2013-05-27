@@ -5,7 +5,8 @@
 package Negocio;
 
 import Conexion.Conexion;
-import Datos.Usuario;
+import Datos.Comuna;
+import Datos.Estado;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -15,11 +16,11 @@ import java.util.logging.Logger;
  *
  * @author Clark
  */
-public class NegocioUsuario {
+public class NegocioEstado {
+       
+ private Conexion cnn;
 
-    private Conexion cnn;
-
-    public NegocioUsuario() {
+    public NegocioEstado() {
         this.cnn = new Conexion();
     }
 
@@ -36,23 +37,21 @@ public class NegocioUsuario {
 
     }
 
-    public ArrayList<Usuario> getUsuarios() {
-        ArrayList<Usuario> lista = new ArrayList();
-        this.configurarConexion("usuario");
+    public ArrayList<Estado> getEstados() {
+        ArrayList<Estado> lista = new ArrayList();
+        this.configurarConexion("Estado");
         cnn.setEsSelect(true);
 
         cnn.setSentenciaSql("Select * from " + cnn.getNombreTabla());
         cnn.conectar();
         try {
             while (cnn.getRst().next()) {
-                Usuario c = new Usuario();
-                c.setUser(cnn.getRst().getString("user"));
-                c.setPass(cnn.getRst().getString("pass"));
-                c.setNivel(cnn.getRst().getInt("nivel"));
+                Estado c = new Estado();
+                c.setEstado(cnn.getRst().getString("Estado"));
                 lista.add(c);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NegocioDocente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NegocioEstado.class.getName()).log(Level.SEVERE, null, ex);
         }
         cnn.cerrarConexion();
         return lista;

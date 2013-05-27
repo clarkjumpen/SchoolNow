@@ -77,8 +77,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuSalir = new javax.swing.JMenuItem();
         mnuAlumnos = new javax.swing.JMenu();
+        mnuAlumnosAdm = new javax.swing.JMenuItem();
         mnuAsignaturas = new javax.swing.JMenu();
+        mnuAsignaturasAdm = new javax.swing.JMenuItem();
         mnuCursos = new javax.swing.JMenu();
+        mnuCursosAdm = new javax.swing.JMenuItem();
         mnuDocentes = new javax.swing.JMenu();
         mnuDocentesAdm = new javax.swing.JMenuItem();
         mnuNotas = new javax.swing.JMenu();
@@ -122,12 +125,39 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         mnuAlumnos.setText("Alumnos");
+
+        mnuAlumnosAdm.setText("Administrar");
+        mnuAlumnosAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAlumnosAdmActionPerformed(evt);
+            }
+        });
+        mnuAlumnos.add(mnuAlumnosAdm);
+
         jMenuBar1.add(mnuAlumnos);
 
         mnuAsignaturas.setText("Asignaturas");
+
+        mnuAsignaturasAdm.setText("Administrar");
+        mnuAsignaturasAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAsignaturasAdmActionPerformed(evt);
+            }
+        });
+        mnuAsignaturas.add(mnuAsignaturasAdm);
+
         jMenuBar1.add(mnuAsignaturas);
 
         mnuCursos.setText("Cursos");
+
+        mnuCursosAdm.setText("Administrar");
+        mnuCursosAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCursosAdmActionPerformed(evt);
+            }
+        });
+        mnuCursos.add(mnuCursosAdm);
+
         jMenuBar1.add(mnuCursos);
 
         mnuDocentes.setText("Docentes");
@@ -149,6 +179,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(mnuUsuarios);
 
         mnuAcercaDe.setText("Acerca de...");
+        mnuAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAcercaDeActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(mnuAcercaDe);
 
         setJMenuBar(jMenuBar1);
@@ -181,19 +216,46 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void mnuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCerrarSesionActionPerformed
-          MenuPrincipal m = new MenuPrincipal(0);
-            m.setLocationRelativeTo(null);
-            m.setVisible(true);
-            this.dispose();
+        MenuPrincipal m = new MenuPrincipal(0);
+        m.setLocationRelativeTo(null);
+        m.setVisible(true);
+        this.dispose();
 
     }//GEN-LAST:event_mnuCerrarSesionActionPerformed
 
     private void mnuDocentesAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDocentesAdmActionPerformed
-    Modulo.admDocentes = new AdmDocentes(this,true);
-      
-      Modulo.admDocentes.setLocationRelativeTo(null);
-      Modulo.admDocentes.setVisible(true);
+        Modulo.admDocentes = new AdmDocentes(this, true);
+        Modulo.admDocentes.setLocationRelativeTo(null);
+        Modulo.admDocentes.setVisible(true);
     }//GEN-LAST:event_mnuDocentesAdmActionPerformed
+
+    private void mnuAlumnosAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAlumnosAdmActionPerformed
+
+        Modulo.admAlumnos = new AdmAlumnos(this, true);
+
+        Modulo.admAlumnos.setLocationRelativeTo(null);
+        Modulo.admAlumnos.setVisible(true);
+    }//GEN-LAST:event_mnuAlumnosAdmActionPerformed
+
+    private void mnuAsignaturasAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAsignaturasAdmActionPerformed
+        Modulo.admAsignaturas = new AdmAsignaturas(this, true);
+
+        Modulo.admAsignaturas.setLocationRelativeTo(null);
+        Modulo.admAsignaturas.setVisible(true);
+    }//GEN-LAST:event_mnuAsignaturasAdmActionPerformed
+
+    private void mnuAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAcercaDeActionPerformed
+    AcercaDe acer = new AcercaDe(this,true);
+    acer.setVisible(true);
+           
+    }//GEN-LAST:event_mnuAcercaDeActionPerformed
+
+    private void mnuCursosAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCursosAdmActionPerformed
+        Modulo.admCursos = new AdmCurso(this, true);
+
+        Modulo.admCursos.setLocationRelativeTo(null);
+        Modulo.admCursos.setVisible(true);
+    }//GEN-LAST:event_mnuCursosAdmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,10 +309,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu mnuAcercaDe;
     private javax.swing.JMenu mnuAlumnos;
+    private javax.swing.JMenuItem mnuAlumnosAdm;
     private javax.swing.JMenu mnuAsignaturas;
+    private javax.swing.JMenuItem mnuAsignaturasAdm;
     private javax.swing.JMenuItem mnuCerrarSesion;
     private javax.swing.JMenu mnuConexion;
     private javax.swing.JMenu mnuCursos;
+    private javax.swing.JMenuItem mnuCursosAdm;
     private javax.swing.JMenu mnuDocentes;
     private javax.swing.JMenuItem mnuDocentesAdm;
     private javax.swing.JMenuItem mnuIniciarSesion;

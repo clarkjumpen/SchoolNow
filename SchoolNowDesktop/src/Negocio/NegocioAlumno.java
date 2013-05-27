@@ -5,8 +5,8 @@
 package Negocio;
 
 import Conexion.Conexion;
+import Datos.Alumno;
 import Datos.Comuna;
-import Datos.Docente;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  *
  * @author usuario
  */
-public class NegocioDocente {
+public class NegocioAlumno {
 
     private Conexion cnn;
 
-    public NegocioDocente() {
+    public NegocioAlumno() {
         this.cnn = new Conexion();
     }
 
@@ -41,7 +41,7 @@ public class NegocioDocente {
     }
 
     public String getPassword(String rut) {
-        this.configurarConexion("Docente");
+        this.configurarConexion("Alumno");
         cnn.setEsSelect(true);
         cnn.setSentenciaSql("Select Pass from " + cnn.getNombreTabla() + " where Rut='" + rut + "'");
         cnn.conectar();
@@ -50,31 +50,31 @@ public class NegocioDocente {
                 return cnn.getRst().getString("Pass");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NegocioDocente.class
+            Logger.getLogger(NegocioAlumno.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         cnn.cerrarConexion();
         return null;
     }
 
-    public void setContraseña(Docente d,String contraseña) {
-        this.configurarConexion("Docente");
+    public void setContraseña(Alumno d, String contraseña) {
+        this.configurarConexion("Alumno");
         cnn.setEsSelect(false);
         cnn.setSentenciaSql("update "
                 + cnn.getNombreTabla()
-                + " set Pass ='" + contraseña + "' where Rut='"+d.getRut()+"'");
+                + " set Pass ='" + contraseña + "' where Rut='" + d.getRut() + "'");
         cnn.conectar();
         cnn.cerrarConexion();
     }
 
-    public Docente getDocente(String rut) {
-        this.configurarConexion("Docente");
+    public Alumno getAlumno(String rut) {
+        this.configurarConexion("Alumno");
         cnn.setEsSelect(true);
         cnn.setSentenciaSql("Select * from " + cnn.getNombreTabla() + " where Rut='" + rut + "'");
         cnn.conectar();
         try {
             while (cnn.getRst().next()) {
-                Docente c = new Docente();
+                Alumno c = new Alumno();
                 c.setRut(cnn.getRst().getString("Rut"));
                 c.setNombre(cnn.getRst().getString("Nombre"));
                 c.setApellido(cnn.getRst().getString("apellido"));
@@ -85,20 +85,20 @@ public class NegocioDocente {
                 c.setEmail(cnn.getRst().getString("Email"));
                 c.setTelefono(cnn.getRst().getString("Telefono"));
                 c.setPass(cnn.getRst().getString("Pass"));
-                c.setEsJefe(cnn.getRst().getBoolean("esJefe"));
-                c.setCursoJefe(cnn.getRst().getString("cursoJefe"));
+                c.setEstado(cnn.getRst().getInt("Estado_id_Estado"));
+                c.setCurso(cnn.getRst().getInt("Curso_id_Curso"));
                 return c;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NegocioDocente.class
+            Logger.getLogger(NegocioAlumno.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         cnn.cerrarConexion();
         return null;
     }
 
-    public void ingresarDocente(Docente d) {
-        this.configurarConexion("docente");
+    public void ingresarAlumno(Alumno d) {
+        this.configurarConexion("Alumno");
         cnn.setEsSelect(false);
         cnn.setSentenciaSql("insert into "
                 + cnn.getNombreTabla()
@@ -113,16 +113,16 @@ public class NegocioDocente {
                 + d.getEmail() + "','"
                 + d.getTelefono() + "','"
                 + d.getPass() + "',"
-                + d.isEsJefe() + ",'"
-                + d.getCursoJefe() + "')");
+                + d.getEstado() +","
+                + d.getCurso() +")");
         System.out.println(cnn.getSentenciaSql());
         cnn.conectar();
         cnn.cerrarConexion();
 
     }
 
-    public void eliminarDocente(String rut) {
-        this.configurarConexion("Docente");
+    public void eliminarAlumno(String rut) {
+        this.configurarConexion("Alumno");
 
         cnn.setEsSelect(false);
         cnn.setSentenciaSql("Delete from "
@@ -133,16 +133,16 @@ public class NegocioDocente {
 
     }
 
-    public ArrayList<Docente> getDocentes() {
-        ArrayList<Docente> lista = new ArrayList();
-        this.configurarConexion("Docente");
+    public ArrayList<Alumno> getAlumno() {
+        ArrayList<Alumno> lista = new ArrayList();
+        this.configurarConexion("Alumno");
         cnn.setEsSelect(true);
 
         cnn.setSentenciaSql("Select * from " + cnn.getNombreTabla());
         cnn.conectar();
         try {
             while (cnn.getRst().next()) {
-                Docente c = new Docente();
+                Alumno c = new Alumno();
                 c.setRut(cnn.getRst().getString("Rut"));
                 c.setNombre(cnn.getRst().getString("Nombre"));
                 c.setApellido(cnn.getRst().getString("apellido"));
@@ -153,20 +153,20 @@ public class NegocioDocente {
                 c.setEmail(cnn.getRst().getString("Email"));
                 c.setTelefono(cnn.getRst().getString("Telefono"));
                 c.setPass(cnn.getRst().getString("Pass"));
-                c.setEsJefe(cnn.getRst().getBoolean("esJefe"));
-                c.setCursoJefe(cnn.getRst().getString("cursoJefe"));
+                c.setEstado(cnn.getRst().getInt("Estado_id_Estado"));
+                c.setCurso(cnn.getRst().getInt("curso_id_curso"));
                 lista.add(c);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NegocioDocente.class
+            Logger.getLogger(NegocioAlumno.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         cnn.cerrarConexion();
         return lista;
     }
 
-    public void modificarDocente(Docente c, String buscando) {
-        this.configurarConexion("Docente");
+    public void modificarAlumno(Alumno c, String buscando) {
+        this.configurarConexion("Alumno");
         this.cnn.setEsSelect(false);
         System.out.println("rut y wea: " + c.getRut());
         cnn.setSentenciaSql("Update "
@@ -179,17 +179,17 @@ public class NegocioDocente {
                 + "Direccion='" + c.getDireccion() + "',"
                 + "Comuna_id_Comuna=" + c.getComuna() + ","
                 + "Email='" + c.getEmail() + "',"
-                + "Telefono='" + c.getTelefono() + "',"
-                + "esJefe=" + c.isEsJefe() + ","
-                + "cursoJefe='" + c.getCursoJefe() + "' where Rut='" + buscando + "'");
+                + "Telefono='" + c.getTelefono() +"',"
+                + "Estado_id_estado=" +c.getEstado() +","
+                + "Curso_id_curso="+ c.getCurso()+" where Rut='" + buscando + "'");
         cnn.conectar();
         cnn.cerrarConexion();
         System.out.println(cnn.getSentenciaSql());
     }
 
-    public Docente buscarDocente(String rut) {
-        Docente c = new Docente();
-        this.configurarConexion("Docente");
+    public Alumno buscarAlumno(String rut) {
+        Alumno c = new Alumno();
+        this.configurarConexion("Alumno");
         cnn.setEsSelect(true);
 
         cnn.setSentenciaSql("Select * from "
@@ -209,60 +209,11 @@ public class NegocioDocente {
                 c.setEmail(cnn.getRst().getString("Email"));
                 c.setTelefono(cnn.getRst().getString("Telefono"));
                 c.setPass(cnn.getRst().getString("Pass"));
-                c.setEsJefe(cnn.getRst().getBoolean("esJefe"));
-                c.setCursoJefe(cnn.getRst().getString("cursoJefe"));
-
-
-
-
-
-
+                c.setEstado(cnn.getRst().getInt("Estado_id_Estado"));
+                c.setCurso(cnn.getRst().getInt("Curso_id_curso"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NegocioDocente.class
-                    .getName()).log(Level.SEVERE, null, ex);
-
-
-
-            return null;
-        }
-        cnn.cerrarConexion();
-        return c;
-    }
-    
-    public Docente buscarDocente(int docente) {
-        Docente c = new Docente();
-        this.configurarConexion("Docente");
-        cnn.setEsSelect(true);
-
-        cnn.setSentenciaSql("Select * from "
-                + cnn.getNombreTabla()
-                + " where id_docente='" + docente + "'");
-        cnn.conectar();
-
-        try {
-            if (cnn.getRst().next()) {
-                c.setRut(cnn.getRst().getString("Rut"));
-                c.setNombre(cnn.getRst().getString("Nombre"));
-                c.setApellido(cnn.getRst().getString("Apellido"));
-                c.setFnac(cnn.getRst().getDate("Fnac"));
-                c.setSexo(cnn.getRst().getInt("Sexo_id_Sexo"));
-                c.setDireccion(cnn.getRst().getString("Direccion"));
-                c.setComuna(cnn.getRst().getInt("Comuna_id_Comuna"));
-                c.setEmail(cnn.getRst().getString("Email"));
-                c.setTelefono(cnn.getRst().getString("Telefono"));
-                c.setPass(cnn.getRst().getString("Pass"));
-                c.setEsJefe(cnn.getRst().getBoolean("esJefe"));
-                c.setCursoJefe(cnn.getRst().getString("cursoJefe"));
-
-
-
-
-
-
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NegocioDocente.class
+            Logger.getLogger(NegocioAlumno.class
                     .getName()).log(Level.SEVERE, null, ex);
 
 
@@ -276,7 +227,7 @@ public class NegocioDocente {
     public boolean existeRut(String rut) {
         boolean siEsta = false;
 
-        this.configurarConexion("Docente");
+        this.configurarConexion("Alumno");
         cnn.setEsSelect(true);
 
         cnn.setSentenciaSql("Select * from "
@@ -290,36 +241,13 @@ public class NegocioDocente {
                 siEsta = true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NegocioDocente.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-        cnn.cerrarConexion();
-        return siEsta;
-        }
-        public boolean existeDocente(String Nombre) {
-    
-        boolean siEsta = false;
-
-        this.configurarConexion("Docente");
-        cnn.setEsSelect(true);
-
-        cnn.setSentenciaSql("Select * from "
-                + cnn.getNombreTabla()
-                + " where concat(docente.nombre,' ',docente.apellido)='" + Nombre + "'");
-        cnn.conectar();
-
-
-        try {
-            if (cnn.getRst().next()) {
-                siEsta = true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NegocioDocente.class
+            Logger.getLogger(NegocioAlumno.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         cnn.cerrarConexion();
         return siEsta;
     }
+
     private String toStringDate(java.util.Date date) {
         DateFormat df;
         String dateString;

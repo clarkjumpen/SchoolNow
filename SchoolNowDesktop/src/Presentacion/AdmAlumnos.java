@@ -5,11 +5,15 @@
  */
 package Presentacion;
 
+import Datos.Alumno;
 import Datos.Comuna;
 import Datos.Docente;
+import Datos.Estado;
 import Datos.Sexo;
+import Negocio.NegocioAlumno;
 import Negocio.NegocioComuna;
 import Negocio.NegocioDocente;
+import Negocio.NegocioEstado;
 import Negocio.NegocioSexo;
 import java.awt.List;
 import java.text.DecimalFormat;
@@ -25,12 +29,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Clark
  */
-public class AdmDocentes extends javax.swing.JDialog {
+public class AdmAlumnos extends javax.swing.JDialog {
 
     /**
      * Creates new form AdmDocentes
      */
-    public AdmDocentes(java.awt.Frame parent, boolean modal) {
+    public AdmAlumnos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         inicializarComponentes();
@@ -44,6 +48,7 @@ public class AdmDocentes extends javax.swing.JDialog {
         this.btnModificar.setEnabled(false);
         NegocioComuna negC = new NegocioComuna();
         NegocioSexo negS = new NegocioSexo();
+        NegocioEstado negE = new NegocioEstado();
 
         ArrayList<Comuna> comunas = negC.getComunas();
         for (int i = 0; i < comunas.size(); i++) {
@@ -54,6 +59,12 @@ public class AdmDocentes extends javax.swing.JDialog {
         for (int i = 0; i < sexos.size(); i++) {
             this.cmbSexo.addItem(sexos.get(i).getSexo());
         }
+
+        ArrayList<Estado> estados = negE.getEstados();
+        for (int i = 0; i < estados.size(); i++) {
+            this.cmbEstado.addItem(estados.get(i).getEstado());
+        }
+
         resetearTabla();
 
     }
@@ -100,13 +111,13 @@ public class AdmDocentes extends javax.swing.JDialog {
         lblEjEmail = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         cmbSexo = new javax.swing.JComboBox();
-        jPanel11 = new javax.swing.JPanel();
-        chkJefe = new javax.swing.JCheckBox();
-        jLabel12 = new javax.swing.JLabel();
-        cmbCurso = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         btnPass = new javax.swing.JButton();
         lblEjRut1 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        cmbEstado = new javax.swing.JComboBox();
+        jPanel6 = new javax.swing.JPanel();
+        cmbCurso = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         lblRut = new javax.swing.JLabel();
         txtBuscarRut = new javax.swing.JTextField();
@@ -126,13 +137,13 @@ public class AdmDocentes extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Administrar Docentes");
+        setTitle("Administra Alumnos");
         setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lblTitulo.setText("Administracion Docentes");
+        lblTitulo.setText("Administracion Alumnos");
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Datos Docente"));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Datos Alumno"));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rut"));
 
@@ -344,7 +355,7 @@ public class AdmDocentes extends javax.swing.JDialog {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cmbSexo, 0, 90, Short.MAX_VALUE)
+                .addComponent(cmbSexo, 0, 106, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -352,38 +363,6 @@ public class AdmDocentes extends javax.swing.JDialog {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cmbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Es Profesor Jefe?"));
-
-        chkJefe.setText("Si");
-
-        jLabel12.setText("Curso");
-
-        cmbCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selec..." }));
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(chkJefe)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chkJefe)
-                    .addComponent(jLabel12)
-                    .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -422,31 +401,75 @@ public class AdmDocentes extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Estado"));
+
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar..." }));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Curso"));
+
+        cmbCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar..." }));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbCurso, 0, 106, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -460,9 +483,14 @@ public class AdmDocentes extends javax.swing.JDialog {
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Busqueda"));
@@ -657,18 +685,19 @@ public class AdmDocentes extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTitulo))
+                    .addComponent(lblTitulo)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(49, 49, 49)))
-                .addContainerGap())
+                        .addGap(61, 61, 61))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -676,17 +705,16 @@ public class AdmDocentes extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -740,6 +768,16 @@ public class AdmDocentes extends javax.swing.JDialog {
             this.cmbSexo.requestFocus();
             return true;
         }
+        if (this.cmbCurso.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Porfavor, Elija el Curso del alumno", "Faltan datos", JOptionPane.WARNING_MESSAGE);
+            this.cmbCurso.requestFocus();
+            return true;
+        }
+        if (this.cmbEstado.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Porfavor, Elija el estado del alumno en la lista", "Faltan datos", JOptionPane.WARNING_MESSAGE);
+            this.cmbEstado.requestFocus();
+            return true;
+        }
         if (this.calendarFecha.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Porfavor, Indique la fecha de nacimiento", "Faltan datos", JOptionPane.WARNING_MESSAGE);
             this.calendarFecha.requestFocus();
@@ -749,24 +787,22 @@ public class AdmDocentes extends javax.swing.JDialog {
         return false;
     }
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        NegocioDocente negd = new NegocioDocente();
+        NegocioAlumno negd = new NegocioAlumno();
         if (comprobarCampos() == true) {
             return;
         } else {
             if (negd.existeRut(this.txtRut.getText()) == true) {
-                JOptionPane.showMessageDialog(this, "El docente que esta intentando ingresar, ya se encuentra registrado", "Error de duplicacion", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El alumno que esta intentando ingresar, ya se encuentra registrado", "Error de duplicacion", JOptionPane.WARNING_MESSAGE);
             } else {
                 int opcion = 0;
                 opcion = JOptionPane.showConfirmDialog(this,
-                        "Desea Ingresar al Docente " + this.txtNombres.getText() + " " + this.txtApellidos.getText() + " ?",
+                        "Desea Ingresar al Alumno " + this.txtNombres.getText() + " " + this.txtApellidos.getText() + " ?",
                         "Confirmar",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (opcion == JOptionPane.YES_OPTION) {
-
-
-
-                    Docente d = new Docente();
+                    ;
+                    Alumno d = new Alumno();
                     d.setRut(this.txtRut.getText());
                     d.setNombre(this.txtNombres.getText());
                     d.setApellido(this.txtApellidos.getText());
@@ -774,17 +810,12 @@ public class AdmDocentes extends javax.swing.JDialog {
                     d.setDireccion(this.txtDireccion.getText() + " " + this.txtNumero.getText());
                     d.setEmail(this.txtEmail.getText());
                     d.setTelefono(this.txtTelefono.getText());
-                    if (this.chkJefe.isSelected()) {
-                        d.setEsJefe(true);
-                    } else {
-                        d.setEsJefe(false);
-                    }
                     d.setComuna(this.cmbComuna.getSelectedIndex());
                     d.setSexo(this.cmbSexo.getSelectedIndex());
-                    d.setCursoJefe("4Medio");
-                    d.setPass(this.txtRut.getText().substring(0, 4));
-                    negd.ingresarDocente(d);
-                    JOptionPane.showMessageDialog(this, "Docente " + d.getNombre() + " " + d.getApellido() + " Ingresado con Exito!", "Suceso", JOptionPane.INFORMATION_MESSAGE);
+                    d.setPass(this.txtRut.getText().substring(0, 5));
+                    d.setCurso(this.cmbCurso.getSelectedIndex());
+                    negd.ingresarAlumno(d);
+                    JOptionPane.showMessageDialog(this, "Alumno " + d.getNombre() + " " + d.getApellido() + " Ingresado con Exito!", "Suceso", JOptionPane.INFORMATION_MESSAGE);
                     limpiarCampos();
                 }
             }
@@ -806,13 +837,13 @@ public class AdmDocentes extends javax.swing.JDialog {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         int opcion = 0;
         opcion = JOptionPane.showConfirmDialog(this,
-                "Guardar cambios en Docente " + this.txtNombres.getText() + " " + this.txtApellidos.getText() + " ?",
+                "Guardar cambios en Alumno " + this.txtNombres.getText() + " " + this.txtApellidos.getText() + " ?",
                 "Confirmar",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if (opcion == JOptionPane.YES_OPTION) {
-            NegocioDocente negD = new NegocioDocente();
-            Docente d = new Docente();
+            NegocioAlumno negD = new NegocioAlumno();
+            Alumno d = new Alumno();
             d.setRut(this.txtRut.getText());
             d.setNombre(this.txtNombres.getText());
             d.setApellido(this.txtApellidos.getText());
@@ -820,17 +851,12 @@ public class AdmDocentes extends javax.swing.JDialog {
             d.setDireccion(this.txtDireccion.getText() + " " + this.txtNumero.getText());
             d.setEmail(this.txtEmail.getText());
             d.setTelefono(this.txtTelefono.getText());
-            if (this.chkJefe.isSelected()) {
-                d.setEsJefe(true);
-            } else {
-                d.setEsJefe(false);
-            }
             d.setComuna(this.cmbComuna.getSelectedIndex());
             d.setSexo(this.cmbSexo.getSelectedIndex());
-            d.setCursoJefe("4Medio");
+            d.setCurso(this.cmbCurso.getSelectedIndex());
             //d.setPass(this.txtRut.getText().substring(0,5));
-            negD.modificarDocente(d, this.txtBuscarRut.getText().trim());
-            JOptionPane.showMessageDialog(this, "Docente " + d.getNombre() + " " + d.getApellido() + " Modificado con Exito!", "Suceso", JOptionPane.INFORMATION_MESSAGE);
+            negD.modificarAlumno(d, this.txtBuscarRut.getText().trim());
+            JOptionPane.showMessageDialog(this, "Alumno " + d.getNombre() + " " + d.getApellido() + " Modificado con Exito!", "Suceso", JOptionPane.INFORMATION_MESSAGE);
             limpiarCampos();
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -839,10 +865,10 @@ public class AdmDocentes extends javax.swing.JDialog {
         if (this.tblResultados.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "No hay resultados que seleccionar", "Error", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            NegocioDocente negD = new NegocioDocente();
+            NegocioAlumno negD = new NegocioAlumno();
             int x = this.tblResultados.getSelectedRow();
 
-            Docente d = new Docente();
+            Alumno d = new Alumno();
 
             String rut = (String) this.tblResultados.getValueAt(x, 0);
 
@@ -853,8 +879,8 @@ public class AdmDocentes extends javax.swing.JDialog {
                 this.btnIngresar.setEnabled(false);
                 this.btnModificar.setEnabled(true);
                 this.btnPass.setEnabled(true);
-                if (negD.buscarDocente(this.txtBuscarRut.getText()).getRut().equals(rut)) {
-                    d = negD.buscarDocente(this.txtBuscarRut.getText());
+                if (negD.buscarAlumno(this.txtBuscarRut.getText()).getRut().equals(rut)) {
+                    d = negD.buscarAlumno(this.txtBuscarRut.getText());
                     LlenarFormulario(d);
 
                 }
@@ -863,11 +889,11 @@ public class AdmDocentes extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        NegocioDocente negD = new NegocioDocente();
-        Docente d = negD.buscarDocente(this.txtBuscarRut.getText());
+        NegocioAlumno negD = new NegocioAlumno();
+        Alumno d = negD.buscarAlumno(this.txtBuscarRut.getText());
 
         if (negD.existeRut(this.txtBuscarRut.getText().trim()) == false) {
-            JOptionPane.showMessageDialog(this, "No se encontro el docente!", "No encontrado", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se encontro el Alumno!", "No encontrado", JOptionPane.WARNING_MESSAGE);
 
         } else {
             for (int i = 0; i < this.tblResultados.getRowCount(); i++) {//recorrer tabla buscarlo en la tabla
@@ -886,14 +912,14 @@ public class AdmDocentes extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPassActionPerformed
-        NegocioDocente negD = new NegocioDocente();
+        NegocioAlumno negD = new NegocioAlumno();
 
         if (negD.existeRut(this.txtBuscarRut.getText().trim()) == false) {
-            JOptionPane.showMessageDialog(this, "Busque y seleccione el docente antes", "No encontrado", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Busque y seleccione el Alumno antes", "No encontrado", JOptionPane.WARNING_MESSAGE);
 
         } else {
-            Docente d = negD.getDocente(this.txtBuscarRut.getText().trim());
-            cambioPassword cp = new cambioPassword(null, true, d, 32);
+            Alumno d = negD.getAlumno(this.txtBuscarRut.getText().trim());
+            cambioPassword cp = new cambioPassword(null, true, d, 16);
             cp.setVisible(true);
         }
 
@@ -967,7 +993,7 @@ public class AdmDocentes extends javax.swing.JDialog {
         this.txtBuscarRut.setText("");
     }//GEN-LAST:event_btnLimpiarBuscarActionPerformed
 
-    private void LlenarFormulario(Docente d) {
+    private void LlenarFormulario(Alumno d) {
 
         this.txtRut.setText(d.getRut());
         this.txtNombres.setText(d.getNombre());
@@ -984,6 +1010,7 @@ public class AdmDocentes extends javax.swing.JDialog {
         this.calendarFecha.setDate(d.getFnac());
         this.cmbComuna.setSelectedIndex(d.getComuna());
         this.cmbSexo.setSelectedIndex(d.getSexo());
+        this.cmbCurso.setSelectedIndex(d.getCurso());
 
     }
 
@@ -1010,6 +1037,7 @@ public class AdmDocentes extends javax.swing.JDialog {
         this.calendarFecha.setDate(null);
         this.cmbComuna.setSelectedIndex(0);
         this.cmbSexo.setSelectedIndex(0);
+        this.cmbCurso.setSelectedIndex(0);
 
     }
 
@@ -1042,16 +1070,16 @@ public class AdmDocentes extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdmDocentes.class
+            java.util.logging.Logger.getLogger(AdmAlumnos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdmDocentes.class
+            java.util.logging.Logger.getLogger(AdmAlumnos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdmDocentes.class
+            java.util.logging.Logger.getLogger(AdmAlumnos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdmDocentes.class
+            java.util.logging.Logger.getLogger(AdmAlumnos.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -1059,7 +1087,7 @@ public class AdmDocentes extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AdmDocentes dialog = new AdmDocentes(new javax.swing.JFrame(), true);
+                AdmAlumnos dialog = new AdmAlumnos(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1081,11 +1109,10 @@ public class AdmDocentes extends javax.swing.JDialog {
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
     private com.toedter.calendar.JDateChooser calendarFecha;
-    private javax.swing.JCheckBox chkJefe;
     private javax.swing.JComboBox cmbComuna;
     private javax.swing.JComboBox cmbCurso;
+    private javax.swing.JComboBox cmbEstado;
     private javax.swing.JComboBox cmbSexo;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -1096,6 +1123,7 @@ public class AdmDocentes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
